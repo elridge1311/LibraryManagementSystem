@@ -72,4 +72,11 @@ public class BookController
         }
     }
 
+    @GetMapping("/api/books/available")
+    public ResponseEntity<List<BookEntity>> getAllBooksByAvailableCopies()
+    {
+        return new ResponseEntity<List<BookEntity>>(bookRepo.findByAvailableCopiesGreaterThan(0),
+                HttpStatus.OK);
+    }
+
 }

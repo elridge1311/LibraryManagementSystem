@@ -12,4 +12,6 @@ public interface BookRepo extends JpaRepository<BookEntity, Long>
 
     List<BookEntity> findBookByTitleContainingIgnoreCase(String title);
 
+    List<BookEntity> findByAvailableCopiesGreaterThan(int availableCopies);
+
 }

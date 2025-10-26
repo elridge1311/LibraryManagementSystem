@@ -5,10 +5,19 @@
       <module name="demo" target="17" />
       <module name="demo.main" target="17" />
       <module name="demo.test" target="17" />
+      <module name="management" target="17" />
+      <module name="management.main" target="17" />
+      <module name="management.test" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api-gateway" options="-parameters" />
+      <module name="api-gateway.main" options="-parameters" />
+      <module name="api-gateway.test" options="-parameters" />
+      <module name="book-service" options="-parameters" />
+      <module name="book-service.main" options="-parameters" />
+      <module name="book-service.test" options="-parameters" />
       <module name="demo" options="-parameters" />
       <module name="demo.main" options="-parameters" />
       <module name="demo.test" options="-parameters" />
@@ -18,6 +27,9 @@
       <module name="management" options="-parameters" />
       <module name="management.main" options="-parameters" />
       <module name="management.test" options="-parameters" />
+      <module name="transaction-service" options="-parameters" />
+      <module name="transaction-service.main" options="-parameters" />
+      <module name="transaction-service.test" options="-parameters" />
     </option>
   </component>
 </project>
