@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -77,6 +78,52 @@ public class BookController
     {
         return new ResponseEntity<List<BookEntity>>(bookRepo.findByAvailableCopiesGreaterThan(0),
                 HttpStatus.OK);
+    }
+
+    @PutMapping("/api/books/{id}/decrement")
+    public ResponseEntity<String> decrementBook(@PathVariable Long id)
+    {
+        Optional<BookEntity> optionalBook = bookRepo.findById(id);
+        if (optionalBook.isEmpty())
+        {
+            return ResponseEntity.notFound().build();
+        }
+
+        BookEntity book = optionalBook.get();
+
+        if (book.getAvailableCopies() <= 0)
+        {
+            return ResponseEntity.badRequest()
+                    .body("No available copies to decrement.");
+        }
+
+        book.setAvailableCopies(book.getAvailableCopies() - 1);
+        bookRepo.save(book);
+
+        return ResponseEntity.ok("Book availability decremented successfully.");
+    }
+
+    @PutMapping("/api/books/{id}/increment")
+    public ResponseEntity<String> incrementBook(@PathVariable Long id)
+    {
+        Optional<BookEntity> optionalBook = bookRepo.findById(id);
+        if (optionalBook.isEmpty())
+        {
+            return ResponseEntity.notFound().build();
+        }
+
+        BookEntity book = optionalBook.get();
+
+        if (book.getAvailableCopies() >= book.getTotalCopies())
+        {
+            return ResponseEntity.badRequest()
+                    .body("Cannot exceed total copies.");
+        }
+
+        book.setAvailableCopies(book.getAvailableCopies() + 1);
+        bookRepo.save(book);
+
+        return ResponseEntity.ok("Book availability incremented successfully.");
     }
 
 }
